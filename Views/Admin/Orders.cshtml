@@ -1,0 +1,107 @@
+﻿@model IEnumerable<Order>
+
+@{
+    ViewData["Title"] = "Buyurtmalar";
+}
+
+<h2>Buyurtmalar</h2>
+
+<table class="orders-table">
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Foydalanuvchi</th>
+            <th>Taom</th>
+            <th>Narx</th>
+            <th>Status</th>
+            <th>Buyurtma sanasi</th>
+            <th>Holatni yangilash</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.OrderId</td>
+                <td>@order.UserId</td>
+                <td>@order.Dish</td>
+                <td>@order.Price</td>
+                <td>@order.Status</td>
+                <td>
+                    <form method="post" action="@Url.Action("UpdateOrderStatus", "Admin")">
+                        <input type="hidden" name="orderId" value="@order.OrderId" />
+                        <select name="status" class="status-dropdown">
+                            <option value="Pending">Pending</option>
+                            <option value="InProgress" >In Progress</option>
+                            <option value="Ready">Ready</option>
+                            <option value="Delivered" >Delivered</option>
+                        </select>
+                        <button type="submit" class="update-btn">Yangilash</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Adding styles -->
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f7fc;
+        margin: 0;
+        padding: 0;
+    }
+
+    h2 {
+        text-align: center;
+        margin-top: 20px;
+        color: #333;
+    }
+
+    .orders-table {
+        width: 90%;
+        margin: 30px auto;
+        border-collapse: collapse;
+        background-color: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .orders-table th, .orders-table td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .orders-table th {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .orders-table tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .status-dropdown {
+        padding: 5px;
+        font-size: 14px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .update-btn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 6px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .update-btn:hover {
+        background-color: #45a049;
+    }
+
+   
+</style>

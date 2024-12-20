@@ -1,0 +1,55 @@
+﻿@model IEnumerable<RestoranBoshqaruvi.Models.Users>
+
+@{
+    ViewData["Title"] = "Manage Users";
+}
+
+<div class="container mt-5">
+    <h2>@ViewData["Title"]</h2>
+
+    <div class="mb-3">
+        <a class="btn btn-primary" href="@Url.Action("CreateUser", "Admin")">Yangi Foydalanuvchi Qo'shish</a>
+    </div>
+
+    <!-- Foydalanuvchilar ro'yxati -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Ism</th>
+                <th scope="col">Email</th>
+                <th scope="col">Roli</th>
+                <th scope="col">Harakatlar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.UserId</td>
+                    <td>@user.Name</td>
+                    <td>@user.Email</td>
+                    <td>@user.Role</td>
+                    <td>
+                        <!-- Tahrir qilish va o'chirish tugmalari -->
+                        <a href="@Url.Action("UpdateUser", "Admin", new { userId = user.UserId })" class="btn btn-warning btn-sm">Tahrirlash</a>
+                        <form action="@Url.Action("DeleteUser", "Admin", new { userId = user.UserId })" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Foydalanuvchini o\'chirishni tasdiqlaysizmi?')">O\'chirish</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- CSS -->
+<style>
+    table th, table td {
+        text-align: center;
+    }
+
+    .btn {
+        margin-right: 10px;
+    }
+</style>

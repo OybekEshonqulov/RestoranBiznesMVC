@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to RestoranBoshqaruvi</h1>
+    <p>Learn more about how to manage the restaurant system using ASP.NET Core MVC.</p>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <p>Hello, @User.Identity.Name! You are logged in.</p>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <a class="btn btn-primary" href="@Url.Action("Orders", "Admin")">Orders</a>
+            <a class="btn btn-primary" href="@Url.Action("ManageUsers", "Admin")">Manage Users</a>
+        }
+        else if (User.IsInRole("Chef"))
+        {
+            <a class="btn btn-success" href="@Url.Action("ViewOrders", "Chef")">View Orders</a>
+        }
+        else if (User.IsInRole("Waiter"))
+        {
+            <a class="btn btn-warning" href="@Url.Action("ViewOrders", "Waiter")">View Orders</a>
+        }
+    }
+    else
+    {
+        <a href="@Url.Action("Login", "Account")">Please log in</a>
+    }
+</div>

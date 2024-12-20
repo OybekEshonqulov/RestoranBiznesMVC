@@ -1,0 +1,56 @@
+﻿@model IEnumerable<RestoranBoshqaruvi.Models.Order>
+
+<h2>Chef Buyurtmalari</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Buyurtma ID</th>
+            <th>Buyurtma Tafsilotlari</th>
+            <th>Status</th>
+            <th>Harakat</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.OrderId</td>
+                <td>@order.Dish</td>
+                <td>
+                    <!-- Status tanlash uchun DropDown -->
+                    <form asp-action="UpdateStatus" method="post" style="display: inline-block;">
+                        <input type="hidden" name="orderId" value="@order.OrderId" />
+                        <select name="status" class="form-select" style="display: inline-block; width: auto;">
+                            @foreach (var status in Enum.GetValues(typeof(RestoranBoshqaruvi.Models.OrderStatus)))
+                            {
+                                <option value="@status" )>
+                                    @status
+                                </option>
+                            }
+                        </select>
+                        <button type="submit" class="btn btn-success btn-sm">Saqlash</button>
+                    </form>
+                </td>
+                <td>
+                    @if (order.Status == OrderStatus.Pending)
+                    {
+                        <span class="text-warning">Jarayonda</span>
+                    }
+                    else if (order.Status == OrderStatus.InProgress)
+                    {
+                        <span class="text-info">Tayyorlanmoqda</span>
+                    }
+                    else if (order.Status == OrderStatus.Ready)
+                    {
+                        <span class="text-success">Tayyor</span>
+                    }
+                    else
+                    {
+                        <span class="text-muted">Yuborilgan</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

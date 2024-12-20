@@ -1,0 +1,19 @@
+﻿@model RestoranBoshqaruvi.Models.Users
+
+@{
+    ViewData["Title"] = "Foydalanuvchini O'chirish";
+}
+
+<div class="container mt-5">
+    <h2>@ViewData["Title"]</h2>
+
+    <div class="alert alert-warning" role="alert">
+        Siz <strong>@Model.Name</strong> foydalanuvchisining ma'lumotlarini o'chirmoqchimisiz?
+    </div>
+
+    <form asp-action="DeleteUser" method="post">
+        <input type="hidden" asp-for="UserId" />
+        <button type="submit" class="btn btn-danger">O'chirishni tasdiqlash</button>
+        <a href="@Url.Action("ManageUsers")" class="btn btn-secondary">Bekor qilish</a>
+    </form>
+</div>

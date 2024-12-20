@@ -1,0 +1,28 @@
+﻿@model RestoranBoshqaruvi.Models.Users
+
+@{
+    ViewData["Title"] = "Yangi Foydalanuvchi Qo'shish";
+}
+
+<div class="container mt-5">
+    <h2>@ViewData["Title"]</h2>
+
+    <form asp-action="CreateUser" method="post">
+        <div class="mb-3">
+            <label for="Name" class="form-label">Ism</label>
+            <input type="text" class="form-control" id="Name" name="Name" required>
+        </div>
+        <div class="mb-3">
+            <label for="Email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="Email" name="Email" required>
+        </div>
+        <div class="mb-3">
+            <label for="Role" class="form-label">Roli</label>
+            <select class="form-select" id="Role" name="Role">
+                <option value="User">Foydalanuvchi</option>
+                <option value="Admin">Admin</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Saqlash</button>
+    </form>
+</div>
